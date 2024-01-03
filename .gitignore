@@ -146,3 +146,5 @@ _Pvt_Extensions
 
 **/*appsettings.Development.json
 **/local.settings.json
+
+*.exe
