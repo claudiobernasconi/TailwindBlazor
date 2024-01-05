@@ -74,3 +74,21 @@ module.exports = {
 ```
 
 However, when we do so, we also need to use that prefix on all CSS classes we add to our components. For example, "text-4xl" is now "tw-text-4xl".
+
+## MSBuild After Build Script (Powershell)
+Instead of running the Tailwind CSS CLI in a terminal, you can also set up a PowerShell script.
+
+You need to have a policy in place that allows script execution. I don't want/have that on my system but it might be helpful for developers who want a fully integrated solution.
+
+Put the following target in your .csproj file:
+
+```csharp
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="powershell .\tailwindwatch.ps1" />
+  </Target>
+```
+
+And the following PowerShell code into your *tailwindwatch.ps1* file:
+```bash
+TASKLIST | FINDSTR tailwindcss.exe || .\..\..\Tailwind\tailwindcss.exe -i .\Styles\tailwind-app.css -o .\wwwroot\tailwind-app.css --watch
+```
